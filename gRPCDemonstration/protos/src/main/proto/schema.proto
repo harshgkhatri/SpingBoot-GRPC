@@ -1,0 +1,52 @@
+syntax ="proto3";
+package com.java;
+option java_multiple_files = true;
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+
+message User{
+  optional int64 id=1;
+  optional string firstName=2;
+  optional string lastName=3;
+  optional string phone=4;
+  optional string email=5;
+}
+message UserDetail{
+  optional int64 id=1;
+  optional string detailName=2;
+  optional string location=3;
+  repeated  User user=4;
+
+}
+
+message UserDetailFilter {
+  optional int64 id=1;
+  optional string detailName=2;
+  optional string location=3;
+}
+
+message UserDetailList {
+  repeated UserDetail resultList=1;
+  google.protobuf.Int64Value resultCount=2;
+}
+
+service UserDetailService{
+  rpc createUserDetail (UserDetail) returns (UserDetail) {};
+  rpc updateUserDetail (UserDetail) returns (UserDetail) {};
+  rpc findUserByFilter(UserDetailFilter) returns (UserDetailList) {};
+  rpc deleteUserDetail(google.protobuf.Int64Value) returns (google.protobuf.Empty) {};
+  rpc findUserById (google.protobuf.Int64Value) returns (UserDetail) {};
+  rpc findAllUser(google.protobuf.Empty) returns (stream UserDetail) {};
+  rpc updateUserInBatch(stream UserDetail) returns (stream UserDetail){};
+
+
+
+}
+
+//User result list
+
+
+
+
+
